@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define STACK_SIZE 100
+
+typedef struct {
+    int stack[STACK_SIZE];
+    int top;
+} Stack;
+
+void push(Stack *stack, int value) {
+    if (stack->top == STACK_SIZE - 1) {
+        fprintf(stderr, "L%d: stack overflow\n", __LINE__);
+        exit(EXIT_FAILURE);
+    }
+    stack->top++;
+    stack->stack[stack->top] = value;
+}
+
+void pall(Stack *stack) {
+    for (int i = stack->top; i >= 0; i--) {
+        printf("%d\n", stack->stack[i]);
+    }
+}
+
+int main() {
+    Stack stack;
+    stack.top = -1; // Initialize an empty stack
+
+    // Example usage
+    push(&stack, 1);
+    push(&stack, 2);
+    push(&stack, 3);
+    pall(&stack);
+
+    return 0;
+}
